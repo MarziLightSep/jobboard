@@ -24,10 +24,10 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <nav style={{ display: "flex", gap: "1rem", padding: "1rem", border: "1px dashed", borderRadius: "5px" }}>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/jobs"}>Jobs</Link>
-          <Link href={"/about"}>About</Link>
+        <nav className="h-10 bg-slate-400 flex gap-3 p-2 text-lg">
+          <Link className="hover:text-black hover:border-b-2 transition-all duration-300" href={"/"}>Home</Link>
+          <Link className="hover:text-black hover:border-b-2 transition-all duration-300" href={"/jobs"}>Jobs</Link>
+          <Link className="hover:text-black hover:border-b-2 transition-all duration-300" href={"/about"}>About</Link>
         </nav>
         {children}
       </body>
