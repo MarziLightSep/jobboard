@@ -1,8 +1,10 @@
-import { jobs } from "@/app/data/jobs";
+import { connectDB } from "@/lib/mongodb";
+import Job from "@/models/Job";
 
 export default async function JobDetail({params}) {
     const {id} = await params;
-    const job = jobs.find((job) => job.id === Number(id));
+    await connectDB();
+    const job = await Job.findById(id).lean();
 
     if (!job) {
         return <main className="p-4 text-xl font-bold">Job not found</main>;
