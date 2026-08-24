@@ -9,7 +9,10 @@ export default async function Jobs() {
   
     return (
       <main className="p-4">
-        <h1 className="text-xl font-bold mb-4">All Jobs</h1>
+        <h1 className="text-xl font-bold mb-2">All Jobs</h1>
+        <button className="rounded text-sm p-1 mb-4 border cursor-pointer hover:bg-slate-600">
+          <Link href={"/jobs/new"}>Add new job</Link>
+        </button>
         <ul className="flex flex-col gap-3">
           {jobs.map((job) => (
             <li key={job._id} className="border p-3 rounded">
