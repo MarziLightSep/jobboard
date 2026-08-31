@@ -7,9 +7,15 @@ export const metadata = {
   description: "Browse open developer job listings.",
 };
 
-export default async function Jobs() {
+export default async function Jobs({searchParams}) {
+
+  const {search} = await searchParams;
+
   await connectDB();
-  const jobs = await Job.find().lean();
+
+  const query = search ? {title: {$regex: search, $options: "i"}} : {};
+
+  const jobs = await Job.find(query).lean();
   
     return (
       <main className="p-4">
@@ -17,6 +23,15 @@ export default async function Jobs() {
         <button className="rounded text-sm p-1 mb-4 border cursor-pointer hover:bg-slate-600">
           <Link href={"/jobs/new"}>Add new job</Link>
         </button>
+        <form className="mb-4">
+          <input
+            type="text"
+            name="search"
+            defaultValue={search}
+            placeholder="Search job titles..."
+            className="border p-2 rounded w-full max-w-sm"
+          />
+        </form>
         <ul className="flex flex-col gap-3">
           {jobs.map((job) => (
             <li key={job._id} className="border p-3 rounded">
@@ -32,6 +47,9 @@ export default async function Jobs() {
             </li>
           ))}
         </ul>
+        {jobs.length === 0 && (
+          <p className="text-gray-400 mt-4">No jobs match your search</p>
+        )}
       </main>
     );
 }
