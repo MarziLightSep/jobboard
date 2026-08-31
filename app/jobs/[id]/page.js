@@ -2,6 +2,20 @@ import { connectDB } from "@/lib/mongodb";
 import Job from "@/models/Job";
 import JobActions from "./JobActions";
 
+export async function generateMetadata({params}) {
+  const {id} = await params;
+  await connectDB();
+  const job = await Job.findById(id).lean();
+
+  if(!job) return({title: "Job not found - DevBoard"})
+  
+  return {
+    title: `${job.title} at ${job.company} — DevBoard`,
+    description: `${job.title} position at ${job.company}, ${job.location}.`,
+  };
+  
+}
+
 export default async function JobDetail({ params }) {
   const { id } = await params;
   await connectDB();

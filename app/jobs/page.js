@@ -2,6 +2,10 @@ import Link from "next/link";
 import Job from "@/models/Job";
 import { connectDB } from "@/lib/mongodb";
 
+export const metadata = {
+  title: "All Jobs - DevBoard",
+  description: "Browse open developer job listings.",
+};
 
 export default async function Jobs() {
   await connectDB();
