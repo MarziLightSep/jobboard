@@ -2,10 +2,16 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function NewJob() {
     const router = useRouter();
     const [form, setForm] = useState({title: "", company: "", location: "", salary: ""});
+    const {data: session, status} = useSession();
+
+    if(status === "loading") return(<main className="text-2xl p-4">Loading ...</main>);
+
+    if(!session) return(<main className="font-bold p-4">Please sign in first</main>)
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
