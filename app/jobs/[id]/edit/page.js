@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 
 export default function EditJob() {
     const [form, setForm] = useState({title: "", company: "", location: "", salary: ""});
+    const [errors, setErrors] = useState({});
     const router = useRouter();
     const params = useParams();
     const [loading, setLoading] = useState(true);
@@ -25,14 +26,19 @@ export default function EditJob() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
         const res = await fetch(`/api/jobs/${params.id}`, {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(form),
         });
 
-        if(res.ok) {
-            router.push(`/jobs/${params.id}`);
+        if (res.ok) {
+          router.push(`/jobs/${params.id}`);
+        } else {
+          const data = await res.json();
+          setErrors(data.error || {});
+          
         }
     };
 
@@ -49,6 +55,11 @@ export default function EditJob() {
             className="border p-2 rounded"
             required
           />
+          {errors.title && (
+            <p className="text-yellow-200 text-sm border-dashed border-yellow-200 border-2 rounded p-1 bg-red-600">
+              {errors.title[0]}
+            </p>
+          )}
           <input
             name="company"
             value={form.company}
@@ -56,6 +67,11 @@ export default function EditJob() {
             className="border p-2 rounded"
             required
           />
+          {errors.company && (
+            <p className="text-yellow-200 text-sm border-dashed border-yellow-200 border-2 rounded p-1 bg-red-600">
+              {errors.company[0]}
+            </p>
+          )}
           <input
             name="location"
             value={form.location}
@@ -63,6 +79,11 @@ export default function EditJob() {
             className="border p-2 rounded"
             required
           />
+          {errors.location && (
+            <p className="text-yellow-200 text-sm border-dashed border-yellow-200 border-2 rounded p-1 bg-red-600">
+              {errors.location[0]}
+            </p>
+          )}
           <input
             name="salary"
             value={form.salary}
@@ -70,6 +91,11 @@ export default function EditJob() {
             className="border p-2 rounded"
             required
           />
+          {errors.salary && (
+            <p className="text-yellow-200 text-sm border-dashed border-yellow-200 border-2 rounded p-1 bg-red-600">
+              {errors.salary[0]}
+            </p>
+          )}
           <button
             type="submit"
             className="bg-blue-500 text-white p-2 rounded cursor-pointer hover:bg-blue-600"
