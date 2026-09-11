@@ -8,7 +8,14 @@ import {z} from "zod";
 export async function GET(request, {params}) {
     await connectDB();
     const {id} = await params;
-    const job = await Job.findById(id)
+
+    let job;
+      try {
+        job = await Job.findById(id);
+      } catch {
+        job = null;
+      }
+    
 
     if(!job) {
         return Response.json({error: "Job not found"}, {status: 404})
@@ -35,7 +42,13 @@ export async function PUT(request, {params}) {
 
     await connectDB();
     const {id} = await params;
-    const job = await Job.findByIdAndUpdate(id, result.data, {new: true});
+
+    let job;
+      try {
+        job = await Job.findByIdAndUpdate(id, result.data, { new: true });
+      } catch {
+        job = null;
+      }
 
     if (!job) {
       return Response.json({ error: "Job not found" }, { status: 404 });
@@ -52,7 +65,13 @@ export async function DELETE(request, {params}) {
     
     await connectDB();
     const {id} = await params;
-    const job = await Job.findByIdAndDelete(id);
+
+    let job;
+    try {
+      job = await Job.findByIdAndDelete(id);
+    } catch {
+      job = null;
+    }
 
     if (!job) {
       return Response.json({ error: "Job not found" }, { status: 404 });

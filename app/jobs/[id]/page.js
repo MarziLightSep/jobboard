@@ -5,7 +5,13 @@ import JobActions from "./JobActions";
 export async function generateMetadata({params}) {
   const {id} = await params;
   await connectDB();
-  const job = await Job.findById(id).lean();
+  
+  let job;
+  try {
+    job = await Job.findById(id).lean();
+  } catch {
+    job = null;
+  }
 
   if(!job) return({title: "Job not found - DevBoard"})
   
@@ -19,7 +25,13 @@ export async function generateMetadata({params}) {
 export default async function JobDetail({ params }) {
   const { id } = await params;
   await connectDB();
-  const job = await Job.findById(id).lean();
+
+  let job;
+  try {
+    job = await Job.findById(id).lean();
+  } catch {
+    job = null;
+  }
 
   if (!job) {
     return <main className="p-4 text-xl font-bold">Job not found</main>;

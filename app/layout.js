@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <SessionProvider>
-          <nav className="h-10 bg-slate-400 flex justify-between gap-3 p-2 text-lg">
+          <nav className="bg-slate-400 flex flex-wrap text-lg justify-between items-center gap-3 p-2">
             <div className="flex gap-3">
               <Link
                 className="hover:text-black hover:border-b-2 transition-all duration-300"
