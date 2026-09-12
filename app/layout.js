@@ -27,26 +27,31 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <SessionProvider>
-          <nav className="bg-slate-400 flex flex-wrap text-lg justify-between items-center gap-3 p-2">
-            <div className="flex gap-3">
-              <Link
-                className="hover:text-black hover:border-b-2 transition-all duration-300"
-                href={"/"}
-              >
-                Home
+          <nav className="bg-linear-to-r from-slate-900 via-gray-500 to-slate-900 shadow-xl border-b-2 flex flex-wrap text-base justify-between items-center gap-3 px-6 py-4">
+            <div className="flex items-center gap-8">
+              <Link href={"/"} className="font-bold text-xl text-white">
+                DevBoard
               </Link>
-              <Link
-                className="hover:text-black hover:border-b-2 transition-all duration-300"
-                href={"/jobs"}
-              >
-                Jobs
-              </Link>
-              <Link
-                className="hover:text-black hover:border-b-2 transition-all duration-300"
-                href={"/about"}
-              >
-                About
-              </Link>
+              <div className="flex gap-6">
+                <Link
+                  className="relative text-gray-300 hover:text-white transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                  href={"/jobs/new"}
+                >
+                  Post job
+                </Link>
+                <Link
+                  className="relative text-gray-300 hover:text-white transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                  href={"/jobs"}
+                >
+                  Jobs
+                </Link>
+                <Link
+                  className="relative text-gray-300 hover:text-white transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                  href={"/about"}
+                >
+                  About
+                </Link>
+              </div>
             </div>
             <AuthButton />
           </nav>
